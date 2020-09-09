@@ -46,7 +46,7 @@ $ yarn  add  flutterwave-vue-v3
 
 * Import the Flutterwave Library in the  'main.js' file.  
 
-* Add the Flutterwave flutterwave to your app passing in your Flutterwave Public Key (optional)
+* Add the Flutterwave plugin to your app passing in your Flutterwave Public Key (optional)
 
 * NB: If Public key is not added you will have to pass in the public_key parameter to the provided payment component button  and payment function
 
