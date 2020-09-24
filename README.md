@@ -1,4 +1,4 @@
-## 📝 Table of Contents
+## Table of Contents
 
 - [About](#about)
 - [Getting Started](#getting-started)
@@ -15,7 +15,7 @@ Flutterwave official Vue library to accept payment via Card, USSD, QrCode etc.
 
 <a id="getting-started"></a>
 
-## 🏁 Getting Started
+## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
 See [references](#references) for links to dashboard and API documentation.
@@ -42,7 +42,7 @@ $ yarn  add  flutterwave-vue-v3
 
 <a id="usage"></a>
 
-## 🔧 Usage
+## Usage
 
 * Import the Flutterwave Library in the  'main.js' file.  
 
@@ -242,7 +242,7 @@ export default {
 ```
 
 <a id="deployment"></a>
-## 🚀 Deployment
+## Deployment
 
 - Switch to Live Mode on the Dashboard settings page
 - Use the Live Public API key 
@@ -256,7 +256,7 @@ export default {
 
 
 <a id="references"></a>
-## 🎉 Flutterwave API  References
+## Flutterwave API  References
 
 - [Flutterwave API Doc](https://developer.flutterwave.com/docs)
 - [Flutterwave Inline Payment Doc](https://developer.flutterwave.com/docs/flutterwave-inline)
