@@ -1,12 +1,12 @@
 {
   "name": "flutterwave-vue-v3",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "private": false,
   "description": "Flutterwave official Vue library to accept payment via Card , USSD, QrCode etc.",
   "author": "Flutterwave",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Flutterwave/Flutterwave-Vue-v3"
+    "url": "git+https://github.com/Flutterwave/Flutterwave-Vue-v3.git"
   },
   "homepage": "https://github.com/Flutterwave/Flutterwave-Vue-v3",
   "keywords": [
@@ -56,5 +56,11 @@
   },
   "engines": {
     "node": ">=10"
+  },
+  "bugs": {
+    "url": "https://github.com/Flutterwave/Flutterwave-Vue-v3/issues"
+  },
+  "directories": {
+    "example": "example"
   }
 }
