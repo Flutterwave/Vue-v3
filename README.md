@@ -1,3 +1,9 @@
+# Flutterwave Vue.JS v3 Library
+![Publish Vue.js Package](https://github.com/Flutterwave/Flutterwave-Vue-v3/workflows/Publish%20Vue.js%20Package/badge.svg)
+![npm](https://img.shields.io/npm/v/flutterwave-vue-v3)
+![npm](https://img.shields.io/npm/dt/flutterwave-vue-v3)
+![NPM](https://img.shields.io/npm/l/flutterwave-vue-v3)
+
 ## Table of Contents
 
 - [About](#about)
