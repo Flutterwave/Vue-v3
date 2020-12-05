@@ -1,6 +1,6 @@
 {
   "name": "flutterwave-vue-v3",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": false,
   "description": "Flutterwave official Vue library to accept payment via Card , USSD, QrCode etc.",
   "author": "Flutterwave",

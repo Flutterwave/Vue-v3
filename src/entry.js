@@ -1,6 +1,7 @@
 // Import vue components
 import * as components from '@/lib-components/index';
-import {ApiTracker} from "./api_tracker";
+import trackApi from "./api_tracker";
+
 
 // install function executed by Vue.use()
 const install = function installFlutterwaveVueV3(Vue, {publicKey = ''}) {
@@ -19,27 +20,62 @@ const install = function installFlutterwaveVueV3(Vue, {publicKey = ''}) {
             }
         },
         methods: {
+
             payWithFlutterwave(paymentParams) {
 
                 let payData = {
                     ...paymentParams,
                     public_key: paymentParams.public_key || publicKey,
                     callback: (response) => {
-
-                        ApiTracker.track(
+                        trackApi(
                             {
                                 paymentData: payData,
                                 response: response,
                                 responseTime: 1000
                             })
-
                         paymentParams.callback(response)
                     }
                 }
 
-
                 window.FlutterwaveCheckout(payData)
             },
+
+            asyncPayWithFlutterwave(paymentData) {
+
+                return new Promise(function (resolve, reject) {
+
+                    let payData = {
+                        ...paymentData,
+                        public_key: paymentData.public_key || publicKey,
+                        callback: ($event) => {
+
+                            trackApi(
+                                {
+                                    paymentData: payData,
+                                    response: $event,
+                                    responseTime: 1000
+                                })
+
+                            resolve($event)
+                        },
+                        onclose: () => resolve('closed')
+                    };
+
+                    window.FlutterwaveCheckout(payData)
+
+                })
+
+            },
+
+            closePaymentModal(waitDuration = 0) {
+                setTimeout(() => {
+                    document.getElementsByName('checkout')[0].setAttribute('style',
+                        'position:fixed;top:0;left:0;z-index:-1;border:none;opacity:0;pointer-events:none;width:100%;height:100%;');
+                    document.body.style.overflow = '';
+                    // document.getElementsByName('checkout')[0].setAttribute('style', 'z-index: -1; opacity: 0')
+                }, waitDuration * 1000)
+            },
+
         }
     })
 };
@@ -69,3 +105,7 @@ export default Flutterwave;
 // To allow individual component use, export components
 // each can be registered via Vue.component()
 export * from '@/lib-components/index';
+
+
+
+  

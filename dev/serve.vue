@@ -12,8 +12,6 @@ export default Vue.extend({
       paymentData: {
         tx_ref: this.generateReference(),
         amount: 10,
-        currency: 'NGN',
-        payment_options: '',
         redirect_url: '',
         meta: {
           'counsumer_id': '7898',
@@ -30,18 +28,27 @@ export default Vue.extend({
           logo: 'https://flutterwave.com/images/logo-colored.svg'
         },
         callback: this.makePaymentCallback,
-        onclose: this.closedPaymentModal
+        onclose: this.closeModalCallback
       }
     }
   } ,
   methods: {
     makePaymentCallback(response) {
       console.log("Pay", response)
+      this.closePaymentModal(5)
     },
-    closedPaymentModal() {
+    asyncPay() {
+      this.asyncPayWithFlutterwave(this.paymentData).then(
+          (response) => {
+            console.log(response)
+            this.closePaymentModal(5)
+          }
+      )
+    },
+    closeModalCallback() {
       console.log('payment is closed');
     },
-    generateReference(){
+    generateReference() {
       let date = new Date()
       return date.getTime().toString();
     }
@@ -52,6 +59,18 @@ export default Vue.extend({
 
 <template>
   <div>
-    <flutterwave-pay-button   v-bind="paymentData" > Click To Pay </flutterwave-pay-button>
+    <flutterwave-pay-button v-bind="paymentData"> Pay With Flw Pay button</flutterwave-pay-button>
+
+
+    <button @click="asyncPay(paymentData)">Pay With Promise</button>
+
+
   </div>
 </template>
+
+<style>
+button {
+  display: block;
+  margin: 5vh auto;
+}
+</style>
