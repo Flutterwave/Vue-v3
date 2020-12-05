@@ -3,7 +3,6 @@ const trackingEndPoint = 'https://kgelfdz7mf.execute-api.us-east-1.amazonaws.com
 const packageVersion = '1.0.3';
 const language = 'Vue V3'
 
-
 /**
  * @param {Object} data
  * @param {Object} data.paymentData - The payment data passed to Inline JS
