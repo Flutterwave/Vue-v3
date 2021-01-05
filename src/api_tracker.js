@@ -2,6 +2,8 @@ const trackingEndPoint = 'https://kgelfdz7mf.execute-api.us-east-1.amazonaws.com
 
 const packageVersion = '1.0.3';
 const language = 'Vue V3'
+	
+    
 
 /**
  * @param {Object} data
@@ -30,7 +32,8 @@ const trackApi = function (data) {
     } else if (paymentOptionsArray.length === 1) {
         title = 'Initiate-Charge-' + paymentOptions
 
-    } else {
+    } 
+        else {
         title = 'Initiate-Charge-Multiple'
 
     }
