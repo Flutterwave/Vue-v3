@@ -2,7 +2,7 @@
 
 This guide contains steps on how to  setup, contribute, build and publish to the Flutterwave Vue package.
 
-The library is generated using 'vue-sfc-rollup' package . This package creates a set of files for building Vue libraries to simplify  the build and deployment process.
+The library is generated using 'vue-sfc-rollup' package . This package creates a set of files for building Vue libraries to simplify  the build and deployment process. 
 
 ###Get started
 
