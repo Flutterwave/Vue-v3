@@ -111,21 +111,37 @@ function _nonIterableRest() {
       type: [String, Number]
     },
     amount: {
-      type: Number,
+      type: [String, Number],
       required: true
     },
     currency: {
       type: String,
       default: 'NGN'
     },
+    country: {
+      type: String,
+      default: 'NG'
+    },
     payment_options: {
       type: String
+    },
+    payment_plan: {
+      type: [String, Number]
+    },
+    subaccounts: {
+      type: null
+    },
+    integrity_hash: {
+      type: null
     },
     redirect_url: {
       type: String
     },
     meta: {
       type: Object
+    },
+    authorization: {
+      type: null
     },
     customer: {
       type: Object
@@ -149,9 +165,14 @@ function _nonIterableRest() {
         tx_ref: this.tx_ref,
         amount: this.amount,
         currency: this.currency,
+        country: this.country,
         payment_options: this.payment_options,
+        payment_plan: this.payment_plan,
+        subaccounts: this.subaccounts,
+        integrity_hash: this.integrity_hash,
         redirect_url: this.redirect_url,
         meta: this.meta,
+        authorization: this.authorization,
         customer: this.customer,
         customizations: this.customizations,
         callback: function callback(response) {
@@ -264,7 +285,7 @@ var __vue_inject_styles__ = undefined;
 var __vue_scope_id__ = undefined;
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-fd1726ea";
+var __vue_module_identifier__ = "data-v-5d469596";
 /* functional template */
 
 var __vue_is_functional_template__ = false;
@@ -279,7 +300,47 @@ var __vue_component__ = /*#__PURE__*/normalizeComponent({
   staticRenderFns: __vue_staticRenderFns__
 }, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);/* eslint-disable import/prefer-default-export */
  //export { default as FlutterwaveVueV3Sample } from './flutterwave-vue-v3-sample.vue';
-var components=/*#__PURE__*/Object.freeze({__proto__:null,FlutterwavePayButton: __vue_component__});var install = function installFlutterwaveVueV3(Vue, _ref) {
+var components=/*#__PURE__*/Object.freeze({__proto__:null,FlutterwavePayButton: __vue_component__});var trackingEndPoint = 'https://kgelfdz7mf.execute-api.us-east-1.amazonaws.com/staging/sendevent';
+var packageVersion = '1.0.3';
+var language = 'Vue V3';
+/**
+ * @param {Object} data
+ * @param {Object} data.paymentData - The payment data passed to Inline JS
+ * @param {Object} data.response - The callback response
+ * @param {string} data.responseTime - The response time
+ */
+
+var trackApi = function trackApi(data) {
+  var trackingData = {
+    publicKey: data.paymentData.public_key,
+    language: language,
+    version: packageVersion,
+    title: '',
+    message: '0' // data.responseTime
+
+  };
+  var paymentOptions = data.paymentData.payment_options || '';
+  var paymentOptionsArray = paymentOptions ? paymentOptions.split(',') : [];
+  var title = '';
+
+  if (paymentOptionsArray.length === 0) {
+    title = 'Initiate-Charge-Dashboard';
+  } else if (paymentOptionsArray.length === 1) {
+    title = 'Initiate-Charge-' + paymentOptions;
+  } else {
+    title = 'Initiate-Charge-Multiple';
+  }
+
+  trackingData.title = data.response.status === 'successful' ? title : title + '-error';
+  submitTracking(trackingData);
+};
+
+var submitTracking = function submitTracking(trackingData) {
+  fetch(trackingEndPoint, {
+    method: 'POST',
+    body: JSON.stringify(trackingData)
+  }).then(function (res) {});
+};var install = function installFlutterwaveVueV3(Vue, _ref) {
   var _ref$publicKey = _ref.publicKey,
       publicKey = _ref$publicKey === void 0 ? '' : _ref$publicKey;
   if (install.installed) return;
@@ -303,9 +364,46 @@ var components=/*#__PURE__*/Object.freeze({__proto__:null,FlutterwavePayButton: 
     },
     methods: {
       payWithFlutterwave: function payWithFlutterwave(paymentParams) {
-        window.FlutterwaveCheckout(_objectSpread2(_objectSpread2({}, paymentParams), {}, {
-          public_key: paymentParams.public_key || publicKey
-        }));
+        var payData = _objectSpread2(_objectSpread2({}, paymentParams), {}, {
+          public_key: paymentParams.public_key || publicKey,
+          callback: function callback(response) {
+            trackApi({
+              paymentData: payData,
+              response: response,
+              responseTime: 1000
+            });
+            paymentParams.callback(response);
+          }
+        });
+
+        window.FlutterwaveCheckout(payData);
+      },
+      asyncPayWithFlutterwave: function asyncPayWithFlutterwave(paymentData) {
+        return new Promise(function (resolve, reject) {
+          var payData = _objectSpread2(_objectSpread2({}, paymentData), {}, {
+            public_key: paymentData.public_key || publicKey,
+            callback: function callback($event) {
+              trackApi({
+                paymentData: payData,
+                response: $event,
+                responseTime: 1000
+              });
+              resolve($event);
+            },
+            onclose: function onclose() {
+              return resolve('closed');
+            }
+          });
+
+          window.FlutterwaveCheckout(payData);
+        });
+      },
+      closePaymentModal: function closePaymentModal() {
+        var waitDuration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+        setTimeout(function () {
+          document.getElementsByName('checkout')[0].setAttribute('style', 'position:fixed;top:0;left:0;z-index:-1;border:none;opacity:0;pointer-events:none;width:100%;height:100%;');
+          document.body.style.overflow = ''; // document.getElementsByName('checkout')[0].setAttribute('style', 'z-index: -1; opacity: 0')
+        }, waitDuration * 1000);
       }
     }
   });

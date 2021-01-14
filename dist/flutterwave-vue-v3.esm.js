@@ -8,21 +8,37 @@ var script = {
       type: [String, Number]
     },
     amount: {
-      type: Number,
+      type: [String, Number],
       required: true
     },
     currency: {
       type: String,
       default: 'NGN'
     },
+    country: {
+      type: String,
+      default: 'NG'
+    },
     payment_options: {
       type: String
+    },
+    payment_plan: {
+      type: [String, Number]
+    },
+    subaccounts: {
+      type: null
+    },
+    integrity_hash: {
+      type: null
     },
     redirect_url: {
       type: String
     },
     meta: {
       type: Object
+    },
+    authorization: {
+      type: null
     },
     customer: {
       type: Object
@@ -44,9 +60,14 @@ var script = {
         tx_ref: this.tx_ref,
         amount: this.amount,
         currency: this.currency,
+        country: this.country,
         payment_options: this.payment_options,
+        payment_plan: this.payment_plan,
+        subaccounts: this.subaccounts,
+        integrity_hash: this.integrity_hash,
         redirect_url: this.redirect_url,
         meta: this.meta,
+        authorization: this.authorization,
         customer: this.customer,
         customizations: this.customizations,
         callback: response => this.callback(response),
@@ -183,6 +204,48 @@ var components = /*#__PURE__*/Object.freeze({
   FlutterwavePayButton: __vue_component__
 });
 
+const trackingEndPoint = 'https://kgelfdz7mf.execute-api.us-east-1.amazonaws.com/staging/sendevent';
+const packageVersion = '1.0.3';
+const language = 'Vue V3';
+/**
+ * @param {Object} data
+ * @param {Object} data.paymentData - The payment data passed to Inline JS
+ * @param {Object} data.response - The callback response
+ * @param {string} data.responseTime - The response time
+ */
+
+const trackApi = function (data) {
+  const trackingData = {
+    publicKey: data.paymentData.public_key,
+    language: language,
+    version: packageVersion,
+    title: '',
+    message: '0' // data.responseTime
+
+  };
+  const paymentOptions = data.paymentData.payment_options || '';
+  const paymentOptionsArray = paymentOptions ? paymentOptions.split(',') : [];
+  let title = '';
+
+  if (paymentOptionsArray.length === 0) {
+    title = 'Initiate-Charge-Dashboard';
+  } else if (paymentOptionsArray.length === 1) {
+    title = 'Initiate-Charge-' + paymentOptions;
+  } else {
+    title = 'Initiate-Charge-Multiple';
+  }
+
+  trackingData.title = data.response.status === 'successful' ? title : title + '-error';
+  submitTracking(trackingData);
+};
+
+const submitTracking = function (trackingData) {
+  fetch(trackingEndPoint, {
+    method: 'POST',
+    body: JSON.stringify(trackingData)
+  }).then(res => {});
+};
+
 // Import vue components
 
 const install = function installFlutterwaveVueV3(Vue, {
@@ -206,9 +269,43 @@ const install = function installFlutterwaveVueV3(Vue, {
 
     methods: {
       payWithFlutterwave(paymentParams) {
-        window.FlutterwaveCheckout({ ...paymentParams,
-          public_key: paymentParams.public_key || publicKey
+        let payData = { ...paymentParams,
+          public_key: paymentParams.public_key || publicKey,
+          callback: response => {
+            trackApi({
+              paymentData: payData,
+              response: response,
+              responseTime: 1000
+            });
+            paymentParams.callback(response);
+          }
+        };
+        window.FlutterwaveCheckout(payData);
+      },
+
+      asyncPayWithFlutterwave(paymentData) {
+        return new Promise(function (resolve, reject) {
+          let payData = { ...paymentData,
+            public_key: paymentData.public_key || publicKey,
+            callback: $event => {
+              trackApi({
+                paymentData: payData,
+                response: $event,
+                responseTime: 1000
+              });
+              resolve($event);
+            },
+            onclose: () => resolve('closed')
+          };
+          window.FlutterwaveCheckout(payData);
         });
+      },
+
+      closePaymentModal(waitDuration = 0) {
+        setTimeout(() => {
+          document.getElementsByName('checkout')[0].setAttribute('style', 'position:fixed;top:0;left:0;z-index:-1;border:none;opacity:0;pointer-events:none;width:100%;height:100%;');
+          document.body.style.overflow = ''; // document.getElementsByName('checkout')[0].setAttribute('style', 'z-index: -1; opacity: 0')
+        }, waitDuration * 1000);
       }
 
     }
