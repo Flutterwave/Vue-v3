@@ -33,7 +33,12 @@
     "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife"
   },
-  "dependencies": {},
+  "dependencies": {
+    "pug": ">=3.0.1",
+    "pug-code-gen": ">=2.0.3",
+    "highlight.js": ">=10.4.1",
+    "node-forge": ">=0.10.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.13.8",
     "@babel/preset-env": "^7.13.9",
@@ -44,7 +49,6 @@
     "@vue/cli-service": "^4.5.11",
     "cross-env": "^7.0.3",
     "minimist": "^1.2.5",
-    "pug-code-gen": ">=2.0.3",
     "rollup": "^2.40.0",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-terser": "^7.0.2",
