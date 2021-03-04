@@ -33,26 +33,31 @@
     "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife"
   },
-  "dependencies": {},
+  "dependencies": {
+    "pug": ">=3.0.1",
+    "pug-code-gen": ">=2.0.3",
+    "highlight.js": ">=10.4.1",
+    "node-forge": ">=0.10.0"
+  },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.5",
-    "@rollup/plugin-alias": "^2.2.0",
-    "@rollup/plugin-commonjs": "^11.1.0",
-    "@rollup/plugin-replace": "^2.3.2",
-    "@vue/cli-plugin-babel": "^4.3.1",
-    "@vue/cli-service": "^4.3.1",
-    "cross-env": "^7.0.2",
+    "@babel/core": "^7.13.8",
+    "@babel/preset-env": "^7.13.9",
+    "@rollup/plugin-alias": "^3.1.2",
+    "@rollup/plugin-commonjs": "^17.1.0",
+    "@rollup/plugin-replace": "^2.4.1",
+    "@vue/cli-plugin-babel": "^4.5.11",
+    "@vue/cli-service": "^4.5.11",
+    "cross-env": "^7.0.3",
     "minimist": "^1.2.5",
-    "rollup": "^2.7.3",
+    "rollup": "^2.40.0",
     "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-terser": "^5.3.0",
-    "rollup-plugin-vue": "^5.1.6",
-    "vue": "^2.6.11",
-    "vue-template-compiler": "^2.6.11"
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-vue": "^6.0.0",
+    "vue": "^2.6.12",
+    "vue-template-compiler": "^2.6.12"
   },
   "peerDependencies": {
-    "vue": "^2.6.11"
+    "vue": "^2.6.12"
   },
   "engines": {
     "node": ">=10"
