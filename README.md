@@ -1,3 +1,7 @@
+<p align="center">
+    <img title="Flutterwave" height="200" src="https://flutterwave.com/images/logo/full.svg" width="50%"/>
+</p>
+
 # Flutterwave Vue.JS v3 Library
 ![Publish Vue.js Package](https://github.com/Flutterwave/Flutterwave-Vue-v3/workflows/Publish%20Vue.js%20Package/badge.svg)
 ![npm](https://img.shields.io/npm/v/flutterwave-vue-v3)
