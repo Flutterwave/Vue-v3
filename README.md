@@ -2,7 +2,7 @@
     <img title="Flutterwave" height="200" src="https://flutterwave.com/images/logo/full.svg" width="50%"/>
 </p>
 
-# Flutterwave Vue.JS v3 Library
+# Flutterwave Vue.JS (Vue2) Library
 ![Publish Vue.js Package](https://github.com/Flutterwave/Flutterwave-Vue-v3/workflows/Publish%20Vue.js%20Package/badge.svg)
 ![npm](https://img.shields.io/npm/v/flutterwave-vue-v3)
 ![npm](https://img.shields.io/npm/dt/flutterwave-vue-v3)
@@ -21,7 +21,7 @@
 <a id="about"></a>
 ## About
 
-Flutterwave official Vue library to accept payment via Card, USSD, QrCode etc.
+Flutterwave official Vue(v2) library to accept payment via Card, USSD, QrCode etc with support for Typescript.
 
 <a id="getting-started"></a>
 
@@ -34,7 +34,7 @@ See [references](#references) for links to dashboard and API documentation.
 ### Prerequisites
 
 ```
-Vue version >= 2
+Vue version = 2.x.x
 Flutterwave version 3 API Public keys
 ```
 
@@ -53,6 +53,8 @@ $ yarn  add  flutterwave-vue-v3
 <a id="usage"></a>
 
 ## Usage
+
+* For Typescript project sample, please see the project in the example directory of the project repository.
 
 * Import the Flutterwave Library in the  'main.js' file.  
 
