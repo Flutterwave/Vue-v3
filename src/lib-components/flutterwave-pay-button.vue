@@ -1,68 +1,65 @@
-<script>
-export default {
-  name: "FlutterwavePayButton" ,
+<script lang="ts">
+import Vue from "vue";
+export default Vue.extend({
+  name: "FlutterwavePayButton",
   props: {
     public_key: {
       type: String,
     },
     tx_ref: {
-      type: [String, Number]
+      type: [String, Number],
     },
     amount: {
       type: [String, Number],
-      required: true
+      required: true,
     },
     currency: {
       type: String,
-      default: 'NGN'
+      default: "NGN",
     },
     country: {
       type: String,
-      default: 'NG'
+      default: "NG",
     },
     payment_options: {
-      type: String
+      type: String,
     },
     payment_plan: {
-      type: [String, Number]
+      type: [String, Number],
     },
     subaccounts: {
-      type: null
+      type: Array,
     },
     integrity_hash: {
-      type: null
+      type: [String, Number],
     },
     redirect_url: {
-      type: String
+      type: String,
     },
     meta: {
-      type: Object
+      type: Object,
     },
     authorization: {
-      type: null
+      type: String,
     },
     customer: {
-      type: Object
+      type: Object,
     },
     customizations: {
-      type: Object
-    }
-    ,
+      type: Object,
+    },
     callback: {
-      type: Function
+      type: Function,
     },
 
     onclose: {
-      type: Function
-    }
-
+      type: Function,
+    },
   },
+
   methods: {
-
-    showPaymentModal(){
-
-      let paymentParams = {
-        public_key: this.public_key,
+    showPaymentModal(): void {
+      let paymentParams: any = {
         tx_ref: this.tx_ref,
         amount: this.amount,
         currency: this.currency,
@@ -76,24 +73,23 @@ export default {
         authorization: this.authorization,
         customer: this.customer,
         customizations: this.customizations,
-        callback: (response) => this.callback(response),
+        callback: (response: any) => this.callback(response),
         onclose: () => this.onclose(),
+      };
 
+      if (this.public_key) {
+        paymentParams.public_key = this.public_key;
       }
 
-      this.payWithFlutterwave(paymentParams)
-
-    }
-
-  }
-}
+      this.$payWithFlutterwave(paymentParams);
+    },
+  },
+});
 </script>
 
 <template>
-
   <button @click="showPaymentModal">
     <slot></slot>
   </button>
-
 </template>
 
