@@ -4,7 +4,7 @@ import Dev from "./serve.vue";
 // library as a whole, comment/remove this import and it's corresponding "Vue.use" call
 import Flutterwave from "@/entry.esm";
 Vue.use(Flutterwave, {
-  publicKey: "FLWPUBK_TEST-4550165677fdcf951548729e3ff6b950-X",
+  publicKey: "FLWPXXX_XXXXXXXXXXXX",
 });
 
 Vue.config.productionTip = false;

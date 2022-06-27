@@ -8,20 +8,33 @@
 ![npm](https://img.shields.io/npm/dt/flutterwave-vue-v3)
 ![NPM](https://img.shields.io/npm/l/flutterwave-vue-v3)
 
+<a id="about"></a>
+
+## Introduction
+
+The Vue SDK helps you create seamless payment experiences in your Vue(2.X) mobile/web app. By connecting to our modal, you can start collecting payment in no time.
+
+Available features include:
+
+- Collections: Card, Account, Mobile money, Bank Transfers, USSD, Barter, NQR.
+- Recurring payments: Tokenization and Subscriptions.
+- Split payments
+
 ## Table of Contents
 
 - [About](#about)
 - [Getting Started](#getting-started)
 - [Usage](#usage)
-- [Running tests](#test)
+- [Testing](#test)
 - [Deployment](#deployment)
 - [Built Using](#build-tools)
 - [References](#references)
+- [Debugging errors](#debug)
+- [Support](#support)
+- [Contribution](#contribution)
+- [License](#license)
 
-<a id="about"></a>
-## About
 
-Flutterwave official Vue(v2) library to accept payment via Card, USSD, QrCode etc with support for Typescript.
 
 <a id="getting-started"></a>
 
@@ -34,8 +47,9 @@ See [references](#references) for links to dashboard and API documentation.
 ### Prerequisites
 
 ```
+Flutterwave version 3 API keys
 Vue version = 2.x.x
-Flutterwave version 3 API Public keys
+
 ```
 
 ### Installing
@@ -54,11 +68,16 @@ $ yarn  add  flutterwave-vue-v3
 
 ## Usage
 
-* For Typescript project sample, please see the project in the example directory of the project repository.
-
 * Import the Flutterwave Library in the  'main.js' file.  
 
 * Add the Flutterwave plugin to your app passing in your Flutterwave Public Key (optional)
+
+```
+Note: 
+
+For Typescript project sample, please see the project in the example directory of the project repository.
+
+```
 
 * NB: If Public key is not added you will have to pass in the public_key parameter to the provided payment component button  and payment function
 
@@ -110,9 +129,12 @@ Method 1: Pass  in payment parameters individually as component attributes
 </template>
 
 <script>
+import {FlutterwavePayButton} from "flutterwave-vue-v3"
 
 export default {
   name: 'App',
+  components: { FlutterwavePayButton },
+
   methods: {
     makePaymentCallback(response) {
       console.log("Payment callback", response)
@@ -349,8 +371,11 @@ Programmatically Close Payment Modal, using the "closePaymentModal()" method
 
 <script>
 
+import {FlutterwavePayButton} from "flutterwave-vue-v3"
+
 export default {
   name: 'App',
+  components: { FlutterwavePayButton },
   methods: {
     makePaymentCallback(response) {
       console.log("Payment callback", response)
@@ -404,6 +429,33 @@ Methods provided by Flutterwave plugin and descriptions:
 - Switch to Live Mode on the Dashboard settings page
 - Use the Live Public API key
 
+<a id="debug"></a>
+
+## Debugging Errors
+
+We understand that you may run into some errors while integrating our library. You can read more about our error messages here.
+
+For authorization and validation error responses, double-check your API keys and request. If you get a server error, kindly engage the team for support.
+
+
+
+
+<a id="support"></a>
+
+# Support
+
+For additional assistance using this library, please create an issue on the Github repo or contact the developer experience (DX) team via [email](mailto:developers@flutterwavego.com) or on [slack](https://bit.ly/34Vkzcg).
+
+You can also follow us [@FlutterwaveEng](https://twitter.com/FlutterwaveEng) and let us know what you think 😊.
+
+<a id="contribution"></a>
+
+## Contribution
+
+We welcome contributions from the community.
+Please see the contribution.md for contributions guidelines.
+
+
 <a id="build-tools"></a>
 
 ## ⛏️ Built Using
@@ -419,3 +471,12 @@ Methods provided by Flutterwave plugin and descriptions:
 - [Flutterwave API Doc](https://developer.flutterwave.com/docs)
 - [Flutterwave Inline Payment Doc](https://developer.flutterwave.com/docs/flutterwave-inline)
 - [Flutterwave Dashboard](https://dashboard.flutterwave.com/login)  
+
+
+<a id="license"></a>
+
+## License
+
+By contributing to this library, you agree that your contributions will be licensed under its MIT license.
+
+Copyright (c) Flutterwave Inc.
