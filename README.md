@@ -8,10 +8,6 @@
 ![npm](https://img.shields.io/npm/dt/flutterwave-vue-v3)
 ![NPM](https://img.shields.io/npm/l/flutterwave-vue-v3)
 
-<a id="about"></a>
-
-## Introduction
-
 The Vue SDK helps you create seamless payment experiences in your Vue(2.X) mobile/web app. By connecting to our modal, you can start collecting payment in no time.
 
 Available features include:
@@ -22,64 +18,40 @@ Available features include:
 
 ## Table of Contents
 
-- [About](#about)
-- [Getting Started](#getting-started)
-- [Usage](#usage)
-- [Testing](#test)
-- [Deployment](#deployment)
-- [Built Using](#build-tools)
-- [References](#references)
-- [Debugging errors](#debug)
-- [Support](#support)
-- [Contribution](#contribution)
-- [License](#license)
+1. [Requirements](#requirements)
+2. [Installating](#installing)
+3. [Usage](#usage)
+4. [Debugging errors](#debugging-errors)
+5. [Support](#support)
+6. [Contribution](#contribution)
+7. [License](#license)
 
+## Requirements
 
+1. Flutterwave for business v3 [API keys](https://developer.flutterwave.com/docs/integration-guides/authentication)
+2. Vue version = 2.x.x
 
-<a id="getting-started"></a>
-
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
-See [references](#references) for links to dashboard and API documentation.
-
-
-### Prerequisites
-
-```
-Flutterwave version 3 API keys
-Vue version = 2.x.x
-
-```
-
-### Installing
-
+## Installing
 
 Install the SDK 
 
 ```bash
 $ npm install flutterwave-vue-v3
+
 # or
 $ yarn  add  flutterwave-vue-v3
 ```
 
 
-<a id="usage"></a>
-
 ## Usage
 
-* Import the Flutterwave Library in the  'main.js' file.  
+1. Import the Flutterwave Library in the  'main.js' file.  
 
-* Add the Flutterwave plugin to your app passing in your Flutterwave Public Key (optional)
+2. Add the Flutterwave plugin to your app passing in your Flutterwave Public Key (optional)
 
-```
-Note: 
+> Note 💡: For Typescript project sample, please see the project in the example directory of the project repository.
 
-For Typescript project sample, please see the project in the example directory of the project repository.
-
-```
-
-* NB: If Public key is not added you will have to pass in the public_key parameter to the provided payment component button  and payment function
+If Public key is not added you will have to pass in the public_key parameter to the provided payment component button  and payment function
 
 ```javascript
 //main.js
@@ -95,8 +67,13 @@ new Vue({
 }).$mount('#app')
 
 ```
+- Use as a component.
+- Calling the Flutterwave method.
+- Closing the Payment modal.
 
-Use as component. Method 1 
+
+### Use as component 
+**Method 1** 
 
 ```html
 <!--
@@ -152,8 +129,8 @@ export default {
 </script>
 ```
 
+**Method 2**
 
-Use as component. Method 2
 ```html
 <!--
 Method 2: Pass  in payment parameters as object to v-bind
@@ -213,7 +190,8 @@ export default {
 
 ```
 
-Use in code, using the 'payWithFlutterwave()' method
+### Call the Flutterwave method
+**using the 'payWithFlutterwave()' method**
 
 ```html
 
@@ -275,7 +253,7 @@ export default {
 
 ```
 
-Use in code, using the 'asyncPayWithFlutterwave()' method
+**using the 'asyncPayWithFlutterwave()' method**
 
 ```html
 
@@ -340,7 +318,8 @@ export default {
 
 ```
 
-Programmatically Close Payment Modal, using the "closePaymentModal()" method
+### Closing the Payment modal
+**Using the "closePaymentModal()" method**
 
 ```html
 
@@ -422,58 +401,23 @@ Methods provided by Flutterwave plugin and descriptions:
 | asyncPayWithFlutterwave()  |  AsyncPaymentOptions : Object  | Promise | This methods allows you to setup and open the payment modal via code and returns a promise containing the payment response |
 | closePaymentModal()  |  waitDuration : number (Optional, default = 0)  | Null | This methods allows you to close the payment modal via code. You can setup the wait time before modal close |
 
-<a id="deployment"></a>
-
-## Deployment
-
-- Switch to Live Mode on the Dashboard settings page
-- Use the Live Public API key
-
-<a id="debug"></a>
-
 ## Debugging Errors
 
 We understand that you may run into some errors while integrating our library. You can read more about our error messages here.
 
 For authorization and validation error responses, double-check your API keys and request. If you get a server error, kindly engage the team for support.
 
-
-
-
-<a id="support"></a>
-
-# Support
+## Support
 
 For additional assistance using this library, please create an issue on the Github repo or contact the developer experience (DX) team via [email](mailto:developers@flutterwavego.com) or on [slack](https://bit.ly/34Vkzcg).
 
 You can also follow us [@FlutterwaveEng](https://twitter.com/FlutterwaveEng) and let us know what you think 😊.
 
-<a id="contribution"></a>
-
 ## Contribution
 
-We welcome contributions from the community.
-Please see the contribution.md for contributions guidelines.
+We welcome contributions from the community. Please see the contribution.md for contributions guidelines.
 
 
-<a id="build-tools"></a>
-
-## ⛏️ Built Using
-
-- [Vue CLI](https://cli.vuejs.org/) 
-- [Vue](https://vuejs.org/)   
-- [Vue-sfc](https://www.npmjs.com/package/vue-sfc-rollup) 
-
-
-<a id="references"></a>
-## Flutterwave API  References
-
-- [Flutterwave API Doc](https://developer.flutterwave.com/docs)
-- [Flutterwave Inline Payment Doc](https://developer.flutterwave.com/docs/flutterwave-inline)
-- [Flutterwave Dashboard](https://dashboard.flutterwave.com/login)  
-
-
-<a id="license"></a>
 
 ## License
 
