@@ -415,7 +415,7 @@ You can also follow us [@FlutterwaveEng](https://twitter.com/FlutterwaveEng) and
 
 ## Contribution
 
-We welcome contributions from the community. Please see the contribution.md for contributions guidelines.
+We welcome contributions from the community. Please see the [community guide](/CONTRIBUTION.md) for contributions guidelines.
 
 
 
