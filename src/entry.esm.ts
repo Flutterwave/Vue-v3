@@ -1,43 +1,62 @@
 import _Vue, { PluginFunction } from "vue";
 //@ts-ignore
-import Vue from "vue";
 
 // Import vue components
 import * as components from "@/lib-components/index";
 
 export interface InlinePaymentOptions {
-  public_key?: string | undefined;
+  public_key?: string;
   tx_ref: string;
-  amount: number;
+  amount: string | number;
   currency?: string;
-  country?: string;
-  authorization?: object | string;
   payment_options?: string;
-  payment_plan?: string | number;
-  subaccounts?: any;
-  integrity_hash?: any;
   redirect_url?: string;
-  meta?: any;
-  customer?: object;
-  customizations?: object;
+  meta?: {
+    [key: string]: string;
+  };
+  customer: {
+    email: string;
+    name?: string;
+    phone_number?: string;
+  };
+  customizations?: {
+    title?: string;
+    logo?: string;
+    description?: string;
+  };
+  payment_plan?: string | number;
+  subaccounts: {
+    id: string;
+  }[];
   callback?: (response: object) => void;
   onclose?: () => void;
 }
 export interface AsyncPaymentOptions {
   public_key?: string;
   tx_ref: string;
-  amount: number;
+  amount: string | number;
   currency?: string;
-  country?: string;
-  authorization?: object | string;
   payment_options?: string;
-  meta?: any;
-  customer?: object;
-  customizations?: object;
+  redirect_url?: string;
+  meta?: {
+    [key: string]: string;
+  };
+  customer: {
+    email: string;
+    name?: string;
+    phone_number?: string;
+  };
+  customizations?: {
+    title?: string;
+    logo?: string;
+    description?: string;
+  };
   payment_plan?: string | number;
-  subaccounts?: any;
-  integrity_hash?: any;
+  subaccounts: {
+    id: string;
+  }[];
 }
+
 export interface PaymentSuccessResponse {
   amount?: number;
   currency?: string;
@@ -51,17 +70,6 @@ export interface PaymentSuccessResponse {
 }
 declare global {
   function FlutterwaveCheckout({}: any): any;
-}
-
-declare module "vue/types/vue" {
-  //  Declare augmentation for Vue
-  interface Vue {
-    $payWithFlutterwave: (paymentParams: InlinePaymentOptions) => void;
-    $asyncPayWithFlutterwave: (
-      paymentData: AsyncPaymentOptions
-    ) => Promise<PaymentSuccessResponse>;
-    $closePaymentModal: (waitDuration: number) => void;
-  }
 }
 
 // install function executed by Vue.use()
@@ -80,88 +88,38 @@ const install: PluginFunction<any> = function installFlwTs(
       if (!document.querySelector(`[src="${inlineSdk}"]`)) {
         document.body.appendChild(script);
       }
-    },
-    methods: {
-      payWithFlutterwave(paymentParams: InlinePaymentOptions): void {
-        let payData = {
-          ...paymentParams,
-          public_key: paymentParams.public_key || publicKey,
-          callback: (response: PaymentSuccessResponse | any) => {
-            // trackApi({
-            //   paymentData: payData,
-            //   response: response,
-            //   responseTime: 1000,
-            // });
-            paymentParams.callback!(response);
-          },
-        };
-
-        window.FlutterwaveCheckout(payData);
-      },
-
-      asyncPayWithFlutterwave(paymentData: AsyncPaymentOptions) {
-        return new Promise(function (resolve) {
-          let payData = {
-            ...paymentData,
-            public_key: paymentData.public_key || publicKey,
-            callback: ($event: PaymentSuccessResponse | any) => {
-              // trackApi({
-              //   paymentData: payData,
-              //   response: $event,
-              //   responseTime: 1000,
-              // });
-
-              resolve($event);
-            },
-            onclose: () => resolve("closed"),
-          };
-
-          window.FlutterwaveCheckout(payData);
-        });
-      },
-
-      closePaymentModal(waitDuration: number = 0) {
-        setTimeout(() => {
-          document
-            .getElementsByName("checkout")[0]
-            .setAttribute(
-              "style",
-              "position:fixed;top:0;left:0;z-index:-1;border:none;opacity:0;pointer-events:none;width:100%;height:100%;"
-            );
-          document.body.style.overflow = "";
-          // document.getElementsByName('checkout')[0].setAttribute('style', 'z-index: -1; opacity: 0')
-        }, waitDuration * 1000);
-      },
-    },
+    }
   });
 
   Vue.prototype.$payWithFlutterwave = function (
-    paymentParams: InlinePaymentOptions
+    paymentOptions: InlinePaymentOptions
   ): void {
-    let payData = {
-      ...paymentParams,
-      public_key: paymentParams.public_key || publicKey,
-      callback: (response: PaymentSuccessResponse | any) => {
+    let payload = {
+      ...paymentOptions,
+      public_key: paymentOptions.public_key || publicKey,
+      currency: paymentOptions.currency || "NGN",
+      callback: (response: PaymentSuccessResponse) => {
         // trackApi({
         //   paymentData: payData,
         //   response: response,
         //   responseTime: 1000,
         // });
-        paymentParams.callback!(response);
+        paymentOptions.callback!(response);
       },
     };
 
-    window.FlutterwaveCheckout(payData);
+    window.FlutterwaveCheckout(payload);
   };
 
   Vue.prototype.$asyncPayWithFlutterwave = function (
-    paymentData: AsyncPaymentOptions
+    paymentOptions: AsyncPaymentOptions
   ): Promise<any> {
     return new Promise(function (resolve) {
-      let payData = {
-        ...paymentData,
-        public_key: paymentData.public_key || publicKey,
-        callback: ($event: PaymentSuccessResponse | any) => {
+      let payload = {
+        ...paymentOptions,
+        public_key: paymentOptions.public_key || publicKey,
+        currency: paymentOptions.currency || "NGN",
+        callback: ($event: PaymentSuccessResponse) => {
           // trackApi({
           //   paymentData: payData,
           //   response: $event,
@@ -173,7 +131,7 @@ const install: PluginFunction<any> = function installFlwTs(
         onclose: () => resolve("closed"),
       };
 
-      window.FlutterwaveCheckout(payData);
+      window.FlutterwaveCheckout(payload);
     });
   };
 

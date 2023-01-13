@@ -39,7 +39,7 @@ export default Vue.extend({
   data() {
     return {
       paymentData: {
-        tx_ref: this.generateReference(),
+        tx_ref: (this as any).generateReference(),
         amount: 10,
         currency: "NGN",
         payment_options: "card,ussd",
@@ -58,8 +58,8 @@ export default Vue.extend({
           description: "Customization Description",
           logo: "https://flutterwave.com/images/logo-colored.svg",
         },
-        callback: this.makePaymentCallback,
-        onclose: this.closedPaymentModal,
+        callback: (this as any).makePaymentCallback,
+        onclose: (this as any).closedPaymentModal,
       },
     };
   },
