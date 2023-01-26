@@ -1,6 +1,6 @@
-<script>
+<script lang="ts">
 import Vue from "vue";
-import { FlutterwavePayButton } from "@/entry";
+import { FlutterwavePayButton } from "@/lib-components";
 
 export default Vue.extend({
   name: "ServeDev",
@@ -10,8 +10,8 @@ export default Vue.extend({
   data() {
     return {
       paymentData: {
-        tx_ref: this.generateReference(),
-        amount: 10,
+        tx_ref: (this as any).generateReference(),
+        amount: "100",
         redirect_url: "",
         meta: {
           counsumer_id: "7898",
@@ -27,20 +27,20 @@ export default Vue.extend({
           description: "Customization Description",
           logo: "https://flutterwave.com/images/logo-colored.svg",
         },
-        callback: this.makePaymentCallback,
-        onclose: this.closeModalCallback,
+        callback: (this as any).makePaymentCallback,
+        onclose: (this as any).closeModalCallback,
       },
     };
   },
   methods: {
-    makePaymentCallback(response) {
+    makePaymentCallback(response: any) {
       console.log("Pay", response);
-      this.closePaymentModal(5);
+      this.$closePaymentModal(5);
     },
     asyncPay() {
-      this.asyncPayWithFlutterwave(this.paymentData).then((response) => {
+      this.$asyncPayWithFlutterwave(this.paymentData).then((response: any) => {
         console.log(response);
-        this.closePaymentModal(5);
+        this.$closePaymentModal(5);
       });
     },
     closeModalCallback() {
@@ -58,10 +58,10 @@ export default Vue.extend({
 <template>
   <div>
     <flutterwave-pay-button v-bind="paymentData">
-      Pay With Flw Pay button</flutterwave-pay-button
-    >
+      Pay With Flw Pay button
+    </flutterwave-pay-button>
 
-    <button @click="asyncPay(paymentData)">Pay With Promise</button>
+    <button @click="asyncPay()">Pay With Promise</button>
   </div>
 </template>
 
