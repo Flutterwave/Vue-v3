@@ -1,36 +1,55 @@
 import { PluginFunction } from "vue";
 export interface InlinePaymentOptions {
-    public_key?: string | undefined;
+    public_key?: string;
     tx_ref: string;
-    amount: number;
+    amount: string | number;
     currency?: string;
-    country?: string;
-    authorization?: object | string;
     payment_options?: string;
-    payment_plan?: string | number;
-    subaccounts?: any;
-    integrity_hash?: any;
     redirect_url?: string;
-    meta?: any;
-    customer?: object;
-    customizations?: object;
+    meta?: {
+        [key: string]: string;
+    };
+    customer: {
+        email: string;
+        name?: string;
+        phone_number?: string;
+    };
+    customizations?: {
+        title?: string;
+        logo?: string;
+        description?: string;
+    };
+    payment_plan?: string | number;
+    subaccounts?: {
+        id: string;
+    }[];
     callback?: (response: object) => void;
     onclose?: () => void;
 }
 export interface AsyncPaymentOptions {
     public_key?: string;
     tx_ref: string;
-    amount: number;
+    amount: string | number;
     currency?: string;
-    country?: string;
-    authorization?: object | string;
     payment_options?: string;
-    meta?: any;
-    customer?: object;
-    customizations?: object;
+    redirect_url?: string;
+    meta?: {
+        [key: string]: string;
+    };
+    customer: {
+        email: string;
+        name?: string;
+        phone_number?: string;
+    };
+    customizations?: {
+        title?: string;
+        logo?: string;
+        description?: string;
+    };
     payment_plan?: string | number;
-    subaccounts?: any;
-    integrity_hash?: any;
+    subaccounts?: {
+        id: string;
+    }[];
 }
 export interface PaymentSuccessResponse {
     amount?: number;
@@ -46,13 +65,6 @@ export interface PaymentSuccessResponse {
 declare global {
     function FlutterwaveCheckout({}: any): any;
 }
-declare module "vue/types/vue" {
-    interface Vue {
-        $payWithFlutterwave: (paymentParams: InlinePaymentOptions) => void;
-        $asyncPayWithFlutterwave: (paymentData: AsyncPaymentOptions) => Promise<PaymentSuccessResponse>;
-        $closePaymentModal: (waitDuration: number) => void;
-    }
-}
 declare const install: PluginFunction<any>;
 export default install;
-export * from "./lib-components/index";
+export * from "./lib-components";

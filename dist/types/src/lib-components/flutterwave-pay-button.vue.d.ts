@@ -3,19 +3,16 @@ declare const _default: import("vue/types/vue").ExtendedVue<Vue, unknown, {
     showPaymentModal(): void;
 }, unknown, {
     public_key: string;
-    tx_ref: string | number;
+    tx_ref: string;
     amount: string | number;
     currency: string;
-    country: string;
     payment_options: string;
-    payment_plan: string | number;
-    subaccounts: unknown[];
-    integrity_hash: string | number;
     redirect_url: string;
     meta: any;
-    authorization: string;
     customer: any;
     customizations: any;
+    payment_plan: string | number;
+    subaccounts: unknown[];
     callback: Function;
     onclose: Function;
 }>;

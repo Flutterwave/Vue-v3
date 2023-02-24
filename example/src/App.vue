@@ -5,13 +5,16 @@
 
     <flutterwave-pay-button
       :tx_ref="generateReference()"
-      :amount="20"
+      amount="20"
       currency="NGN"
       payment_options="card,ussd"
       redirect_url=""
       class="class-name"
       style=""
-      :meta="{ counsumer_id: '7898', consumer_mac: 'kjs9s8ss7dd' }"
+      :meta="{
+        counsumer_id: '7898',
+        consumer_mac: 'kjs9s8ss7dd'
+      }"
       :customer="{
         name: 'Demo Customer  Name',
         email: 'customer@mail.com',
@@ -39,7 +42,7 @@ export default Vue.extend({
   data() {
     return {
       paymentData: {
-        tx_ref: this.generateReference(),
+        tx_ref: (this as any).generateReference(),
         amount: 10,
         currency: "NGN",
         payment_options: "card,ussd",
@@ -58,8 +61,8 @@ export default Vue.extend({
           description: "Customization Description",
           logo: "https://flutterwave.com/images/logo-colored.svg",
         },
-        callback: this.makePaymentCallback,
-        onclose: this.closedPaymentModal,
+        callback: (this as any).makePaymentCallback,
+        onclose: (this as any).closedPaymentModal,
       },
     };
   },

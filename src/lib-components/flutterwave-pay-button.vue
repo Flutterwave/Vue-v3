@@ -1,5 +1,7 @@
 <script lang="ts">
 import Vue from "vue";
+import { InlinePaymentOptions } from '../entry.esm';
+
 export default Vue.extend({
   name: "FlutterwavePayButton",
   props: {
@@ -7,7 +9,8 @@ export default Vue.extend({
       type: String,
     },
     tx_ref: {
-      type: [String, Number],
+      type: String,
+      required: true
     },
     amount: {
       type: [String, Number],
@@ -15,23 +18,9 @@ export default Vue.extend({
     },
     currency: {
       type: String,
-      default: "NGN",
-    },
-    country: {
-      type: String,
-      default: "NG",
     },
     payment_options: {
       type: String,
-    },
-    payment_plan: {
-      type: [String, Number],
-    },
-    subaccounts: {
-      type: Array,
-    },
-    integrity_hash: {
-      type: [String, Number],
     },
     redirect_url: {
       type: String,
@@ -39,19 +28,22 @@ export default Vue.extend({
     meta: {
       type: Object,
     },
-    authorization: {
-      type: String,
-    },
     customer: {
       type: Object,
+      required: true,
     },
     customizations: {
       type: Object,
     },
+    payment_plan: {
+      type: [String, Number],
+    },
+    subaccounts: {
+      type: Array,
+    },
     callback: {
       type: Function,
     },
-
     onclose: {
       type: Function,
     },
@@ -59,20 +51,17 @@ export default Vue.extend({
 
   methods: {
     showPaymentModal(): void {
-      let paymentParams: any = {
+      let paymentParams: InlinePaymentOptions = {
         tx_ref: this.tx_ref,
         amount: this.amount,
         currency: this.currency,
-        country: this.country,
         payment_options: this.payment_options,
-        payment_plan: this.payment_plan,
-        subaccounts: this.subaccounts,
-        integrity_hash: this.integrity_hash,
         redirect_url: this.redirect_url,
         meta: this.meta,
-        authorization: this.authorization,
         customer: this.customer,
         customizations: this.customizations,
+        payment_plan: this.payment_plan,
+        subaccounts: this.subaccounts,
         callback: (response: any) => this.callback(response),
         onclose: () => this.onclose(),
       };
@@ -92,4 +81,3 @@ export default Vue.extend({
     <slot></slot>
   </button>
 </template>
-

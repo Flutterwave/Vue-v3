@@ -7,31 +7,18 @@ var script = Vue.extend({
       type: String
     },
     tx_ref: {
-      type: [String, Number]
+      type: String,
+      required: true
     },
     amount: {
       type: [String, Number],
       required: true
     },
     currency: {
-      type: String,
-      default: "NGN"
-    },
-    country: {
-      type: String,
-      default: "NG"
+      type: String
     },
     payment_options: {
       type: String
-    },
-    payment_plan: {
-      type: [String, Number]
-    },
-    subaccounts: {
-      type: Array
-    },
-    integrity_hash: {
-      type: [String, Number]
     },
     redirect_url: {
       type: String
@@ -39,14 +26,18 @@ var script = Vue.extend({
     meta: {
       type: Object
     },
-    authorization: {
-      type: String
-    },
     customer: {
-      type: Object
+      type: Object,
+      required: true
     },
     customizations: {
       type: Object
+    },
+    payment_plan: {
+      type: [String, Number]
+    },
+    subaccounts: {
+      type: Array
     },
     callback: {
       type: Function
@@ -61,16 +52,13 @@ var script = Vue.extend({
         tx_ref: this.tx_ref,
         amount: this.amount,
         currency: this.currency,
-        country: this.country,
         payment_options: this.payment_options,
-        payment_plan: this.payment_plan,
-        subaccounts: this.subaccounts,
-        integrity_hash: this.integrity_hash,
         redirect_url: this.redirect_url,
         meta: this.meta,
-        authorization: this.authorization,
         customer: this.customer,
         customizations: this.customizations,
+        payment_plan: this.payment_plan,
+        subaccounts: this.subaccounts,
         callback: response => this.callback(response),
         onclose: () => this.onclose()
       };
@@ -211,7 +199,7 @@ var components = /*#__PURE__*/Object.freeze({
   FlutterwavePayButton: __vue_component__$1
 });
 
-// Import vue components
+//@ts-ignore
 
 const install = function installFlwTs(Vue, _ref) {
   let {
@@ -230,56 +218,14 @@ const install = function installFlwTs(Vue, _ref) {
       if (!document.querySelector(`[src="${inlineSdk}"]`)) {
         document.body.appendChild(script);
       }
-    },
-
-    methods: {
-      payWithFlutterwave(paymentParams) {
-        let payData = { ...paymentParams,
-          public_key: paymentParams.public_key || publicKey,
-          callback: response => {
-            // trackApi({
-            //   paymentData: payData,
-            //   response: response,
-            //   responseTime: 1000,
-            // });
-            paymentParams.callback(response);
-          }
-        };
-        window.FlutterwaveCheckout(payData);
-      },
-
-      asyncPayWithFlutterwave(paymentData) {
-        return new Promise(function (resolve) {
-          let payData = { ...paymentData,
-            public_key: paymentData.public_key || publicKey,
-            callback: $event => {
-              // trackApi({
-              //   paymentData: payData,
-              //   response: $event,
-              //   responseTime: 1000,
-              // });
-              resolve($event);
-            },
-            onclose: () => resolve("closed")
-          };
-          window.FlutterwaveCheckout(payData);
-        });
-      },
-
-      closePaymentModal() {
-        let waitDuration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-        setTimeout(() => {
-          document.getElementsByName("checkout")[0].setAttribute("style", "position:fixed;top:0;left:0;z-index:-1;border:none;opacity:0;pointer-events:none;width:100%;height:100%;");
-          document.body.style.overflow = ""; // document.getElementsByName('checkout')[0].setAttribute('style', 'z-index: -1; opacity: 0')
-        }, waitDuration * 1000);
-      }
-
     }
+
   });
 
   Vue.prototype.$payWithFlutterwave = function (paymentParams) {
     let payData = { ...paymentParams,
       public_key: paymentParams.public_key || publicKey,
+      currency: paymentParams.currency || "NGN",
       callback: response => {
         // trackApi({
         //   paymentData: payData,
@@ -296,6 +242,7 @@ const install = function installFlwTs(Vue, _ref) {
     return new Promise(function (resolve) {
       let payData = { ...paymentData,
         public_key: paymentData.public_key || publicKey,
+        currency: paymentData.currency || "NGN",
         callback: $event => {
           // trackApi({
           //   paymentData: payData,
