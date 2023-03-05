@@ -1,16 +1,15 @@
 <script lang="ts">
-import Vue from "vue";
-import { InlinePaymentOptions } from '../entry.esm';
+import Vue from 'vue';
 
 export default Vue.extend({
-  name: "FlutterwavePayButton",
+  name: 'FlutterwavePayButton',
   props: {
     public_key: {
       type: String,
     },
     tx_ref: {
       type: String,
-      required: true
+      required: true,
     },
     amount: {
       type: [String, Number],
@@ -51,7 +50,9 @@ export default Vue.extend({
 
   methods: {
     showPaymentModal(): void {
-      let paymentParams: InlinePaymentOptions = {
+      const paymentParams: {
+        [key:string]: unknown
+      } = {
         tx_ref: this.tx_ref,
         amount: this.amount,
         currency: this.currency,
@@ -62,7 +63,7 @@ export default Vue.extend({
         customizations: this.customizations,
         payment_plan: this.payment_plan,
         subaccounts: this.subaccounts,
-        callback: (response: any) => this.callback(response),
+        callback: (response: unknown) => this.callback(response),
         onclose: () => this.onclose(),
       };
 

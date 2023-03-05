@@ -1,9 +1,9 @@
-<script lang="ts">
-import Vue from "vue";
-import { FlutterwavePayButton } from "@/lib-components";
+<script lang='ts'>
+import Vue from 'vue';
+import { FlutterwavePayButton } from '@/lib-components';
 
 export default Vue.extend({
-  name: "ServeDev",
+  name: 'ServeDev',
   components: {
     FlutterwavePayButton,
   },
@@ -11,21 +11,21 @@ export default Vue.extend({
     return {
       paymentData: {
         tx_ref: (this as any).generateReference(),
-        amount: "100",
-        redirect_url: "",
+        amount: '100',
+        redirect_url: 'https://www.google.com',
         meta: {
-          counsumer_id: "7898",
-          consumer_mac: "kjs9s8ss7dd",
+          counsumer_id: '7898',
+          consumer_mac: 'kjs9s8ss7dd',
         },
         customer: {
-          name: "Demo Customer  Name",
-          email: "customer@mail.com",
-          phone_number: "0818450***44",
+          name: 'Demo Customer  Name',
+          email: 'customer@mail.com',
+          phone_number: '0818450***44',
         },
         customizations: {
-          title: "Customization Title",
-          description: "Customization Description",
-          logo: "https://flutterwave.com/images/logo-colored.svg",
+          title: 'Customization Title',
+          description: 'Customization Description',
+          logo: 'https://flutterwave.com/images/logo-colored.svg',
         },
         callback: (this as any).makePaymentCallback,
         onclose: (this as any).closeModalCallback,
@@ -34,7 +34,7 @@ export default Vue.extend({
   },
   methods: {
     makePaymentCallback(response: any) {
-      console.log("Pay", response);
+      console.log('Pay', response);
       this.$closePaymentModal(5);
     },
     asyncPay() {
@@ -44,16 +44,15 @@ export default Vue.extend({
       });
     },
     closeModalCallback() {
-      console.log("payment is closed");
+      console.log('Payment is closed');
     },
     generateReference() {
-      let date = new Date();
+      const date = new Date();
       return date.getTime().toString();
     },
   },
 });
 </script>
-
 
 <template>
   <div>
