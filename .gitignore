@@ -19,4 +19,6 @@ yarn-error.log*
 *.sln
 *.sw*
 .history/
-.github/
+.nyc_output/
+coverage/
+coverage.lcov
