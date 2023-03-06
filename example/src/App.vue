@@ -34,32 +34,32 @@
 </template>
 
 <script lang="ts">
-import { PaymentSuccessResponse } from "@/entry.esm";
-import Vue from "vue";
+import { PaymentSuccessResponse } from '@/entry.esm';
+import Vue from 'vue';
 
 export default Vue.extend({
-  name: "App",
+  name: 'App',
   data() {
     return {
       paymentData: {
         tx_ref: (this as any).generateReference(),
         amount: 10,
-        currency: "NGN",
-        payment_options: "card,ussd",
-        redirect_url: "",
+        currency: 'NGN',
+        payment_options: 'card,ussd',
+        redirect_url: '',
         meta: {
-          counsumer_id: "7898",
-          consumer_mac: "kjs9s8ss7dd",
+          counsumer_id: '7898',
+          consumer_mac: 'kjs9s8ss7dd',
         },
         customer: {
-          name: "Demo Customer  Name",
-          email: "customer@mail.com",
-          phone_number: "081845***044",
+          name: 'Demo Customer  Name',
+          email: 'customer@mail.com',
+          phone_number: '081845***044',
         },
         customizations: {
-          title: "Customization Title",
-          description: "Customization Description",
-          logo: "https://flutterwave.com/images/logo-colored.svg",
+          title: 'Customization Title',
+          description: 'Customization Description',
+          logo: 'https://flutterwave.com/images/logo-colored.svg',
         },
         callback: (this as any).makePaymentCallback,
         onclose: (this as any).closedPaymentModal,
@@ -70,22 +70,22 @@ export default Vue.extend({
     payViaAsyncMethod() {
       this.$asyncPayWithFlutterwave(this.paymentData).then(
         (res: PaymentSuccessResponse) => {
-          console.log("Async", res);
+          console.log('Async', res);
           this.$closePaymentModal(5);
-        }
+        },
       );
     },
     payViaCode() {
       this.$payWithFlutterwave(this.paymentData);
     },
     makePaymentCallback(response: any) {
-      console.log("Pay", response);
+      console.log('Pay', response);
     },
     closedPaymentModal() {
-      console.log("payment is closed");
+      console.log('payment is closed');
     },
     generateReference(): string {
-      let date = new Date();
+      const date = new Date();
 
       return date.getTime().toString();
     },
