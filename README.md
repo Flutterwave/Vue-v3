@@ -22,11 +22,10 @@ Available features include:
 2. [Installation](#installation)
 3. [Initialization](#initialization)
 4. [Usage](#usage)
-5. [Payment option parameters and descriptions](#payment-option-parameters-and-descriptions)
-6. [Debugging errors](#debugging-errors)
-7. [Support](#support)
-8. [Contribution](#contribution)
-9. [License](#license)
+5. [Debugging errors](#debugging-errors)
+6. [Support](#support)
+7. [Contribution](#contribution)
+8. [License](#license)
 
 
 ## Requirements
@@ -75,32 +74,6 @@ new Vue({
 1. [Collections](https://github.com/Flutterwave/Vue-v3/wiki/Collections)
 2. [Recurring Payments](https://github.com/Flutterwave/Vue-v3/wiki/Recurring-Payments)
 3. [Split payments](https://github.com/Flutterwave/Vue-v3/wiki/Split-Payments)
-
-## Payment option parameters and descriptions
-| Parameter  | Always Required ? | Description |
-| ------------- | ------------- | ------------- |
-| public_key  | True  | Your API public key |
-| tx_ref  | True  | Your transaction reference. This MUST be unique for every transaction |
-| amount  | True  | Amount to charge the customer. |
-| currency  | False  | currency to charge in. Defaults to NGN|
-| payment_options  | True  | This specifies the payment options to be displayed e.g - card, mobilemoney, ussd and so on.  |
-| payment_plan  | False  | This is the payment plan ID used for Recurring billing|
-| redirect_url  | False  | URL to redirect to when a transaction is completed. This is useful for 3DSecure payments so we can redirect your customer back to a custom page you want to show them.  |
-| customer  | True  | This is an object that can contain your customer details: e.g - 'customer': {'email': 'example@example.com','phonenumber': '08012345678','name': 'Takeshi Kovacs' } |
-| subaccounts  | False  | This is an array of objects containing the subaccount IDs to split the payment into. Check our Split Payment page for more info |
-| meta  | False  | This is an object that helps you include additional payment information to your request e.g {'consumer_id': 23,'consumer_mac': '92a3-912ba-1192a' } |
-|  customizations | True  | This is an object that contains title, logo, and description you want to display on the modal e.g{'title': 'Pied Piper Payments','description': 'Middleout isn't free. Pay the price','logo': 'https://assets.piedpiper.com/logo.png'  } |
-| callback (function)  | False  | This is the function that runs after payment is completed  |
-| onclose (function)  | False  | This is the function that runs after payment modal is closed  |
-
-
-Methods provided by Flutterwave plugin and descriptions:
-
-| Method Name  | Parameters  | Returns |Description |
-| ------------- | ------------- | ------------- | ------------- |
-| payWithFlutterwave()  |  InlinePaymentOptions : Object  | Null | This method allows you to setup and open the payment modal via code |
-| asyncPayWithFlutterwave()  |  AsyncPaymentOptions : Object  | Promise | This method allows you to setup and open the payment modal via code and returns a promise containing the payment response |
-| closePaymentModal()  |  waitDuration : number (Optional, default = 0)  | Null | This method allows you to close the payment modal via code. You can setup the wait time before the modal closes |
 
 
 ## Debugging Errors
