@@ -8,7 +8,7 @@
 ![npm](https://img.shields.io/npm/dt/flutterwave-vue-v3)
 ![NPM](https://img.shields.io/npm/l/flutterwave-vue-v3)
 
-The Vue SDK helps you create seamless payment experiences in your Vue(2.X) mobile/web app. By connecting to our modal, you can start collecting payment in no time.
+The Vue SDK helps you create seamless payment experiences in your Vue(2.X) mobile/web app. By connecting to our modal, you can start collecting payments in no time.
 
 Available features include:
 
@@ -30,7 +30,7 @@ Available features include:
 
 
 ## Requirements
-1. Flutterwave for business V3 [API keys](https://developer.flutterwave.com/docs/integration-guides/authentication)
+1. Flutterwave for business V3 [API keys](https://developer.flutterwave.com/v3.0.0/docs/authentication)
 2. Vue version = 2.x.x
 
 
@@ -49,11 +49,11 @@ $ yarn  add  flutterwave-vue-v3
 ## Initialization
 1. Import the Flutterwave Library in the  'main.js' file.  
 
-2. Add the Flutterwave plugin to your app passing in your Flutterwave Public Key (optional)
+2. Add the Flutterwave plugin to your app, passing in your Flutterwave Public Key (optional).
 
 > Note 💡: For a Typescript project sample, please see the project in the example directory of the project repository.
 
-If Public key is not added you will have to pass in the public_key parameter to the provided payment component button  and payment function
+If the Public key is not added, you will have to pass in the public_key parameter to the provided payment component button  and payment function.
 
 ```javascript
 //main.js
@@ -77,46 +77,46 @@ new Vue({
 3. [Split payments](https://github.com/Flutterwave/Vue-v3/wiki/Split-Payments)
 
 ## Payment option parameters and descriptions
-| Parameter  | Always Required ? | Description |
+| Parameter  | Always Required? | Description |
 | ------------- | ------------- | ------------- |
 | public_key  | True  | Your API public key |
 | tx_ref  | True  | Your transaction reference. This MUST be unique for every transaction |
 | amount  | True  | Amount to charge the customer. |
 | currency  | False  | currency to charge in. Defaults to NGN|
-| payment_options  | True  | This specifies the payment options to be displayed e.g - card, mobilemoney, ussd and so on.  |
+| payment_options  | True  | This specifies the payment options to be displayed e.g - card, mobilemoney, ussd, and so on.  |
 | payment_plan  | False  | This is the payment plan ID used for Recurring billing|
-| redirect_url  | False  | URL to redirect to when a transaction is completed. This is useful for 3DSecure payments so we can redirect your customer back to a custom page you want to show them.  |
-| customer  | True  | This is an object that can contain your customer details: e.g - 'customer': {'email': 'example@example.com','phonenumber': '08012345678','name': 'Takeshi Kovacs' } |
+| redirect_url  | False  | URL to redirect to when a transaction is completed. This is useful for 3DSecure payments, so we can redirect your customer back to a custom page you want to show them.  |
+| customer  | True  | This is an object that can contain your customer details: e.g, - 'customer': {'email': 'example@example.com', 'phonenumber': '08012345678', 'name': 'Takeshi Kovacs' } |
 | subaccounts  | False  | This is an array of objects containing the subaccount IDs to split the payment into. Check our Split Payment page for more info |
-| meta  | False  | This is an object that helps you include additional payment information to your request e.g {'consumer_id': 23,'consumer_mac': '92a3-912ba-1192a' } |
-|  customizations | True  | This is an object that contains title, logo, and description you want to display on the modal e.g{'title': 'Pied Piper Payments','description': 'Middleout isn't free. Pay the price','logo': 'https://assets.piedpiper.com/logo.png'  } |
+| meta  | False  | This is an object that helps you include additional payment information to your request, e.g, {'consumer_id': 23, 'consumer_mac': '92a3-912ba-1192a' } |
+|  customizations | True  | This is an object that contains title, logo, and description you want to display on the modal e.g, {'title': 'Pied Piper Payments', 'description': 'Middleout isn't free. Pay the price', 'logo': 'https://assets.piedpiper.com/logo.png'  } |
 | callback (function)  | False  | This is the function that runs after payment is completed  |
-| onclose (function)  | False  | This is the function that runs after payment modal is closed  |
+| onclose (function)  | False  | This is the function that runs after the payment modal is closed  |
 
 
-Methods provided by Flutterwave plugin and descriptions:
+Methods provided by the Flutterwave plugin and descriptions:
 
 | Method Name  | Parameters  | Returns |Description |
 | ------------- | ------------- | ------------- | ------------- |
-| payWithFlutterwave()  |  InlinePaymentOptions : Object  | Null | This method allows you to setup and open the payment modal via code |
-| asyncPayWithFlutterwave()  |  AsyncPaymentOptions : Object  | Promise | This method allows you to setup and open the payment modal via code and returns a promise containing the payment response |
-| closePaymentModal()  |  waitDuration : number (Optional, default = 0)  | Null | This method allows you to close the payment modal via code. You can setup the wait time before the modal closes |
+| payWithFlutterwave()  |  InlinePaymentOptions: Object  | Null | This method allows you to set up and open the payment modal via code |
+| asyncPayWithFlutterwave()  |  AsyncPaymentOptions: Object  | Promise | This method allows you to set up and open the payment modal via code and returns a promise containing the payment response |
+| closePaymentModal()  |  waitDuration: number (Optional, default = 0)  | Null | This method allows you to close the payment modal via code. You can set up the wait time before the modal closes |
 
 
 ## Debugging Errors
-We understand that you may run into some errors while integrating our library. You can read more about our error messages here.
+We understand that you may run into some errors while integrating our library. You can read more about our error messages [here](https://developer.flutterwave.com/v3.0.0/docs/common-errors).
 
 For authorization and validation error responses, double-check your API keys and request. If you get a server error, kindly engage the team for support.
 
 
 ## Support
-For additional assistance using this library, please create an issue on the Github repo or contact the developer experience (DX) team via [email](mailto:developers@flutterwavego.com) or on [Slack](https://bit.ly/34Vkzcg).
+For additional assistance using this library, please create an issue on the GitHub repo or contact the developer experience (DX) team via [email](mailto:developers@flutterwavego.com) or on [Slack](https://bit.ly/34Vkzcg).
 
 You can also follow us [@FlutterwaveEng](https://twitter.com/FlutterwaveEng) and let us know what you think 😊.
 
 
 ## Contribution
-We welcome contributions from the community. Please see the [community guide](/CONTRIBUTION.md) for contributions guidelines.
+We welcome contributions from the community. Please see the [community guide](/CONTRIBUTION.md) for contribution guidelines.
 
 
 ## License
